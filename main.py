@@ -12,8 +12,7 @@ from app.helpers.db import DB_HELPER
 from app.helpers.exceptions import NotFound, ServiceException, ValidationError
 from app.helpers.rabbitmq import RMQ_Client, consumer
 from app.helpers.response import Response
-
-from app.settings import APP_SETTINGS
+from app.api_v1.user_router.router import user_router
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -33,20 +32,16 @@ async def lifespan(f_app: FastAPI):
 
 app = FastAPI(
     lifespan=lifespan,
-    openapi_prefix="/walle",
     docs_url="/swagger",
     openapi_url="/openapi.json",
 )
 
+app.include_router(user_router)
 Instrumentator().instrument(app).expose(app)
 origins: set = {
     "*",
     "http://localhost",
     "http://localhost:*",
-    "http://localhost:3000",
-    "https://simulacrumai.com",
-    "https://*.simulacrumai.com",
-    "https://artytraders.com",
 }
 
 app.add_middleware(
