@@ -25,4 +25,3 @@ async def get_user(request: UserGet,
 async def create_user(user: UserCreate,
                       db: AsyncSession = Depends(DB_HELPER.scoped_session_dependency(db_name="primary"))):
     _user = await UserCommandService.create_user(db, user)
-
