@@ -24,6 +24,7 @@ async def lifespan(f_app: FastAPI):
     async with asynccontextmanager(DB_HELPER.scoped_session_dependency)() as _:
         print("DB Connected")
     await RMQ_Client.connect()
+    await consumer()
     print("RabbitMQ Connected")
     yield
 

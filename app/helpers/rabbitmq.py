@@ -93,9 +93,7 @@ class EventRegister:
     def on(self, event_name):
         def wrapper(func):
             def _wrapper(*args, **kwargs):
-                if event_name not in self._events:
-                    self._events[event_name] = []
-                self._events[event_name].append(func)
+                self._events[event_name] = func
                 return func
 
             return _wrapper

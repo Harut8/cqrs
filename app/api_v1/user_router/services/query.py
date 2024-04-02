@@ -11,7 +11,3 @@ class UserQueryService:
     async def get_user(db: AsyncSession, user_uuid: uuid.UUID) -> User:
         _user = await UserQueryHandler.get_user(db, user_uuid)
         return _user
-
-    @staticmethod
-    async def up_to_date_users(db: AsyncSession) -> User:
-        ...
